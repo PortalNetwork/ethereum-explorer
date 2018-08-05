@@ -48,7 +48,7 @@ export default class extends Component {
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info [ {subdomainValue} ]</p>
+                        <p className="titleName">Name Info [ {subdomainValue.toLowerCase()} ]</p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>

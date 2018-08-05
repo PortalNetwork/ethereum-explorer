@@ -44,7 +44,7 @@ class App extends Component {
 
     handleInputChange = (e) => {
         const { name, value } = e.target;
-        this.setState({ [name]: value });
+        this.setState({ [name]: value.toLowerCase() });
     }
 
     handSeachitem = (e) =>{
@@ -59,17 +59,16 @@ class App extends Component {
     }
 
     handSeachData=()=>{
-        const keydomain = this.state.searchValue.split(".eth");
+        const keydomain = this.state.searchValue.toLowerCase().split(".eth");
         if(keydomain[keydomain.length - 1] !== "") return this.handOpenWarning("ENS format error");
-        const searchResult = this.state.searchValue;
+        const searchResult = this.state.searchValue.toLowerCase();
         const domain = keydomain[keydomain.length - 2].split(".");
         const seachdamain = domain[domain.length-1];     //去頭去尾去.eth
-        if(seachdamain.length < 6) return this.handOpenWarning("ENS has the minimum character length of 6");
+        if(seachdamain.length < 7) return this.handOpenWarning("ENS has the minimum character length of 7");
 
 
         this.setState({isKeyDown: true, isOpenSearch: false, isAboutOpen: false,});
         getEntries(seachdamain).then(entries => {
-            console.log('deed: ', entries.deed);
             getOwner(entries.deed).then(owner => {
                 let t = this.state.idxRes+=1;
                 let eObj = entries;
