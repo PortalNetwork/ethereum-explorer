@@ -39,7 +39,7 @@ export default class extends Component {
                         <p>{entries.state}</p>
                     </li>
                     {entries.state === "Open" ? "" : <li><h2>Time</h2><p>{tomeStr}</p></li>}
-                    {entries.state === "Open" ? "" : <li> <h2>Bid Amount</h2> <p>{web3.fromWei(entries.value, 'ether')} ETH</p> </li>}
+                    {entries.state === "Open" ? "" : <li><h2>Bid Amount</h2> <p>{web3.fromWei(entries.value, 'ether')} ETH</p> </li>}
                     {entries.state === "Open" ? "" : <li><h2>Highest Bid</h2><p>{web3.fromWei(entries.highestBid, 'ether')} ETH</p></li>}
                     
                 </ul>

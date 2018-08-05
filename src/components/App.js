@@ -69,6 +69,7 @@ class App extends Component {
 
         this.setState({isKeyDown: true, isOpenSearch: false, isAboutOpen: false,});
         getEntries(seachdamain).then(entries => {
+            console.log('deed: ', entries.deed);
             getOwner(entries.deed).then(owner => {
                 let t = this.state.idxRes+=1;
                 let eObj = entries;
