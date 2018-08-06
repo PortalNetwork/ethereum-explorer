@@ -126,9 +126,9 @@ const config = {
             filename: 'index.html',
             template: 'html/template.html'
         }),
-        new CopyWebpackPlugin([
-            { from: 'assets', to: 'assets' },
-        ])
+        // new CopyWebpackPlugin([
+        //     { from: 'assets', to: 'assets' },
+        // ])
     ]
 };
 
