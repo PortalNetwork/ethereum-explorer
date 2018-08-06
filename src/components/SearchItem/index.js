@@ -22,7 +22,7 @@ export default class extends Component {
         const addr = (address !== undefined) ?
             <li>
                 <h2>Address</h2>
-                <p>{address}</p>
+                <p><a target="_blank" href={`https://etherscan.io/address/${address}`}>{address}</a></p>
             </li> : "";
         const dWeb = (content !== undefined && content.IPFSHash) ? 
             <li>
@@ -32,7 +32,7 @@ export default class extends Component {
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
                 <h1 className="domainName">{domainValue}</h1>
-                <p className="titleinfo">ENS Info [ {domainValue} ]</p>
+                <p className="titleinfo">ENS Info [ <a target="_blank" href={`https://etherscan.io/enslookup?q=${domainValue}`}>{domainValue}</a> ]</p>
                 <ul className="item">
                     <li>
                         <h2>Status</h2>
@@ -48,15 +48,15 @@ export default class extends Component {
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info [ {subdomainValue.toLowerCase()} ]</p>
+                        <p className="titleName">Name Info [ <a target="_blank" href={content.IPFSHash}>{subdomainValue.toLowerCase()}</a> ]</p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>
-                                <p>{ content === undefined ? "" : content.resolver }</p>
+                                <p><a target="_blank" href={`https://etherscan.io/address/${content.resolver}`}>{ content === undefined ? "" : content.resolver }</a></p>
                             </li>
                             <li>
                                 <h2>Owner</h2>
-                                <p>{entries.owner}</p>
+                                <p><a target="_blank" href={`https://etherscan.io/address/${entries.owner}`}>{entries.owner}</a></p>
                             </li>
                             {addr}
                             {dWeb}
