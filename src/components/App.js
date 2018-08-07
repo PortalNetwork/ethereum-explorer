@@ -145,6 +145,7 @@ class App extends Component {
                 </span>
                 
                 <div className="urllink">
+                    <a className="ensLogo" href="https://ens.domains/" target="_blank"></a>
                     <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-3x"></i></a>
                     <a href="https://github.com/PortalNetwork/ethereum-explorer" target="_blank"><i className="fab fa-github fa-3x"></i></a>
                 </div>
