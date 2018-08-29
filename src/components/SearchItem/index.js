@@ -3,6 +3,7 @@ import classnames from 'classnames/bind';
 import style from "./SearchItem.scss";
 import moment from 'moment';
 import Web3 from 'web3';
+import etherscan from '../../images/etherscan.ico';
 
 const web3 = new Web3();
 const cx = classnames.bind(style);
@@ -32,7 +33,7 @@ export default class extends Component {
         return (
             <div className={cx('SearchItem', {open: isOpenSearch})}>
                 <h1 className="domainName">{domainValue}</h1>
-                <p className="titleinfo">ENS Info [ <a target="_blank" href={`https://etherscan.io/enslookup?q=${domainValue}`}>{domainValue}</a> ]</p>
+                <p className="titleinfo">ENS Info [ <a target="_blank" href={`https://etherscan.io/enslookup?q=${domainValue}`}>{domainValue}</a> ]&nbsp;<a target="_blank" href={`https://etherscan.io/enslookup?q=${domainValue}`}><img src={etherscan} alt="" /></a></p>
                 <ul className="item">
                     <li>
                         <h2>Status</h2>
@@ -48,7 +49,7 @@ export default class extends Component {
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
-                        <p className="titleName">Name Info [ <a target="_blank" href={content.IPFSHash}>{subdomainValue.toLowerCase()}</a> ]</p>
+                        <p className="titleName">Name Info [ <a target="_blank" href={`https://etherscan.io/enslookup?q=${subdomainValue.toLowerCase()}`}>{subdomainValue.toLowerCase()}</a> ]&nbsp;<a target="_blank" href={`https://etherscan.io/enslookup?q=${subdomainValue.toLowerCase()}`}><img src={etherscan} alt="" /></a></p>
                         <ul className="item">
                             <li>
                                 <h2>Resolver</h2>

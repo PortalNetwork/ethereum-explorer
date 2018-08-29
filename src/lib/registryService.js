@@ -69,10 +69,10 @@ export const getResolver = async (name) => {
 
 export const getOwner = async (name) => {
     try {
-      setWeb3Provider();
-      return await registry.owner(namehash.hash(name));
+        setWeb3Provider();
+        return await registry.owner(namehash.hash(name));
     } catch (err) {
-      console.log('getOwner: ', name, err);
-      return 'getOwner error';
+        console.log('getOwner: ', name, err);
+        return 'getOwner error';
     }
-  }  
+}  

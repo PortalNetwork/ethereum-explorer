@@ -30,6 +30,8 @@
         }
     }
     p.titleinfo{
+        display: flex;
+        align-items: center;
         font-family: Avenir;
         font-size: 20px;
         letter-spacing: 0.3px;
@@ -37,6 +39,9 @@
         margin-bottom: 15px;
         >a{
             color: #fff;
+            >img{
+                width: 24px;
+            }
         }
         @media screen and (max-width: 600px) {
             margin-bottom: 5px;
@@ -44,6 +49,8 @@
         }
     }
     p.titleName{
+        display: flex;
+        align-items: center;
         font-family: Avenir;
         font-size: 20px;
         letter-spacing: 0.3px;
@@ -52,6 +59,9 @@
         margin-top: 20px;
         >a{
             color: #fff;
+            >img{
+                width: 24px;
+            }
         }
         @media screen and (max-width: 600px) {
             margin-bottom: 5px;
