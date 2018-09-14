@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
+import classnames from 'classnames/bind';
 import SearchItem from "./SearchItem";
 import { getContent, getAddress } from '../lib/resolverService';
 import { getResolver } from '../lib/registryService';
 import { fromContentHash } from '../helpers/ipfsHelper';
 import { getEntries } from '../lib/registrarService';
-//import { getOwner } from '../lib/deedService';
 import { getOwner } from '../lib/registryService';
-import "./App.scss";
+import style from "./App.scss";
+const cx = classnames.bind(style);
 import Loading from './Loading';
 import Warning from './Warning';
 class App extends Component {
@@ -17,6 +18,7 @@ class App extends Component {
         entries: {},
         content: {},
         isKeyDown: false,
+        isSeach: false,
         idxRes: 0,
         isOpenSearch: false,
         address: "0x0000000000000000000000000000000000000000",
@@ -68,7 +70,7 @@ class App extends Component {
         if(seachdamain.length < 7) return this.handOpenWarning("ENS has the minimum character length of 7");
 
 
-        this.setState({isKeyDown: true, isOpenSearch: false, isAboutOpen: false,});
+        this.setState({isKeyDown: true, isSeach:true, isOpenSearch: false, isAboutOpen: false,});
         getEntries(seachdamain).then(entries => {
             getOwner(this.state.searchValue.toLowerCase()).then(owner => {
                 let t = this.state.idxRes+=1;
@@ -76,7 +78,7 @@ class App extends Component {
                 eObj['owner'] = owner;
                 this.setState({
                     entries: eObj,
-                    idxRes: t
+                    idxRes: t,
                 },()=>this.overResolver(`${seachdamain}.eth`))
             });
         });
@@ -116,60 +118,63 @@ class App extends Component {
 
     render() {
         return (
-            <div className="ethereum">
-                <h1>ENS Explorer</h1>
-                <div className="seach">
-                    <input type="text" 
-                        onKeyDown={this.handSeachitem} 
-                        name="searchValue"
-                        value={this.state.searchValue}
-                        onChange={this.handleInputChange}
-                        placeholder="ethereum.eth"
+            <div className={cx('appBox', {open: this.state.isSeach})}>
+                <div className="ethereum">
+                    <h1>ENS Explorer</h1>
+                    <div className="seach">
+                        <input type="text" 
+                            onKeyDown={this.handSeachitem} 
+                            name="searchValue"
+                            value={this.state.searchValue}
+                            onChange={this.handleInputChange}
+                            placeholder="ethereum.eth"
+                        />
+                        <a 
+                            onClick={this.handSeachitemClick} 
+                            className="seach_icon"
+                        ></a>
+                    </div>
+                    { this.state.isKeyDown && <Loading/> }
+                    <SearchItem
+                        domainValue={this.state.domainValue}
+                        subdomainValue={this.state.subdomainValue}
+                        searchValue={this.state.searchValue}
+                        isOpenSearch={this.state.isOpenSearch}
+                        entries={this.state.entries}
+                        content={this.state.content}
+                        address={this.state.address}
                     />
-                    <a 
-                        onClick={this.handSeachitemClick} 
-                        className="seach_icon"
-                    ></a>
-                </div>
-                { this.state.isKeyDown && <Loading/> }
-                <SearchItem
-                    domainValue={this.state.domainValue}
-                    subdomainValue={this.state.subdomainValue}
-                    searchValue={this.state.searchValue}
-                    isOpenSearch={this.state.isOpenSearch}
-                    entries={this.state.entries}
-                    content={this.state.content}
-                    address={this.state.address}
-                />
-                
-                <span className="text">
-                    <div className="footer">
-                        <a href="https://www.portal.network/" target="_blank">Powered by Portal Network</a>
-                        <a href="https://www.portal.network/privacy_policy.html" target="_blank">Privacy & Policy</a>
-                        <a href="https://www.portal.network/terms_coditions.html" target="_blank">Terms of use</a>
+                    <a className="textabout" onClick={this.handOpenAboutChange}>Find out more about ENS</a>
+                    
+
+                    {this.state.isAboutOpen && 
+                        <div className="info">
+                            <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
+                            <p>ENS is the Ethereum Name Service which is a distributed, extensible naming system based on the Ethereum blockchain that can be used to resolve a wide variety of resources such as Ethereum addresses.</p>
+                        </div>
+                    }
+
+                    <span className={cx('text',{open: this.state.isSeach})}>
+                        <div className="footer">
+                            <a href="https://www.portal.network/" target="_blank">Powered by Portal Network</a>
+                            <a href="https://www.portal.network/privacy_policy.html" target="_blank">Privacy & Policy</a>
+                            <a href="https://www.portal.network/terms_coditions.html" target="_blank">Terms of use</a>
+                        </div>
+                    </span>
+                    
+                    <div className="urllink">
+                        <a className="ensLogo" href="https://ens.domains/" target="_blank"></a>
+                        <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-3x"></i></a>
+                        <a href="https://github.com/PortalNetwork/ethereum-explorer" target="_blank"><i className="fab fa-github fa-3x"></i></a>
                     </div>
-                </span>
-                
-                <div className="urllink">
-                    <a className="ensLogo" href="https://ens.domains/" target="_blank"></a>
-                    <a href="https://t.me/portalnetworkofficial" target="_blank"><i className="fab fa-telegram fa-3x"></i></a>
-                    <a href="https://github.com/PortalNetwork/ethereum-explorer" target="_blank"><i className="fab fa-github fa-3x"></i></a>
+
+
+                    <Warning
+                        isError={this.state.isError}
+                        alertErrStr={this.state.alertErrStr}
+                        closeWarningAlert={this.closeWarningAlert}
+                    />
                 </div>
-
-                <a className="textabout" onClick={this.handOpenAboutChange}>Find out more about ENS</a>
-
-                {this.state.isAboutOpen && 
-                    <div className="info">
-                        <a onClick={this.handOpenAboutChange} className="closeInfo"><i className="fas fa-times-circle"></i></a>
-                        <p>ENS is the Ethereum Name Service which is a distributed, extensible naming system based on the Ethereum blockchain that can be used to resolve a wide variety of resources such as Ethereum addresses.</p>
-                    </div>
-                }
-
-                <Warning
-                    isError={this.state.isError}
-                    alertErrStr={this.state.alertErrStr}
-                    closeWarningAlert={this.closeWarningAlert}
-                />
             </div>
         )
     }
