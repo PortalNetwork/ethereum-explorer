@@ -54,7 +54,7 @@ export default class extends Component {
                     
                 </ul>
                 {entries.state === "Open" ?
-                    <h3 className="available">{domainValue} is now Available for Reservation using <a href="https://beta.portal.network/" target="_blank">beta.portal.network</a> or mobile app</h3>
+                    <h3 className="available">{domainValue} is now Available for Reservation using <a href="https://market.portal.network/" target="_blank">market.portal.network</a> or mobile app</h3>
                 :''}
                 {entries.state === "Open" ? "" :
                     <div>
